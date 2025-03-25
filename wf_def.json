@@ -1,0 +1,101 @@
+{
+    "name": "发起人",
+    "type": 1,
+    "node_id": "wf_start",
+    "child_node": {
+        "type": 2,
+        "node_id": "router_1",
+        "prev_id": "wf_start",
+        "condition_nodes": [
+            {
+                "name": "条件1",
+                "type": 3,
+                "node_id": "condition_1",
+                "prev_id": "router_1",
+                "setting": {
+                    "conditions": [
+                        {
+                            "type": "equal",
+                            "param_key": "leave_type",
+                            "value": "年假"
+                        }
+                    ]
+                },
+                "child_node": {
+                    "name": "请假类型为年假",
+                    "type": 4,
+                    "node_id": "approve_1",
+                    "prev_id": "condition_1",
+                    "setting": {
+                        "action_rules": [
+                            {
+                                "type": "direct_leader",
+                                "label_name": "1001"
+                            }
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "条件2",
+                "type": 3,
+                "node_id": "condition_2",
+                "prev_id": "router_1",
+                "setting": {
+                    "conditions": [
+                        {
+                            "type": "isAnyOf",
+                            "param_key": "leave_type",
+                            "values": [
+                                "事假",
+                                "病假"
+                            ]
+                        }
+                    ]
+                },
+                "child_node": {
+                    "name": "请假类型为事假或病假1",
+                    "type": 4,
+                    "node_id": "approve_2",
+                    "prev_id": "condition_2",
+                    "setting": {
+                        "action_rules": [
+                            {
+                                "type": "direct_leader",
+                                "label_name": "1001"
+                            }
+                        ]
+                    },
+                    "child_node": {
+                        "name": "请假类型为事假或病假2",
+                        "type": 4,
+                        "node_id": "approve_3",
+                        "prev_id": "approve_2",
+                        "setting": {
+                            "action_rules": [
+                                {
+                                    "type": "+2_leader",
+                                    "user_id": "1002"
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        ],
+        "child_node": {
+            "name": "抄送审批结果",
+            "type": 5,
+            "node_id": "appover_pass",
+            "prev_id": "router_1",
+            "setting": {
+                "action_rules": [
+                    {
+                        "type": "hrbp",
+                        "label_name": "1004"
+                    }
+                ]
+            }
+        }
+    }
+}
