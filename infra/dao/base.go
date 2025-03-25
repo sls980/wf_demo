@@ -56,7 +56,7 @@ func getDB() *gorm.DB {
 		dbInstance.DB().SetMaxIdleConns(3)
 		dbInstance.DB().SetMaxOpenConns(10)
 		// 启用日志
-		// dbInstance.LogMode(true)
+		dbInstance.LogMode(true)
 		// 自动迁移模式
 		dbInstance.AutoMigrate(&WfDef{})
 		dbInstance.AutoMigrate(&WfIns{})
